@@ -18,6 +18,8 @@ import java.time.LocalDate;
 
 
 
+
+
 @Transactional
 @CrossOrigin
 @RestController
@@ -34,7 +36,7 @@ public class Controller {
     public Genarator genarator;
 
     public String i;
-public int rsp;
+
    // public String verify = genarator.generateRandom(10);
 
 
@@ -42,9 +44,7 @@ public int rsp;
     @Autowired
     public DetailsServices detailService;
     @GetMapping("/qr-generator")
-
             public String Test() {
-        rsp=0;
         String verify = genarator.generateRandom(20);
         System.out.println(verify);
         i=verify;
@@ -54,117 +54,25 @@ public int rsp;
     @PostMapping("/save")
     public ResponseEntity AddUser(@RequestBody User1 user2) {
 
-rsp=0;
-
-//        LocalTime lc= LocalTime.parse(user2.time);
-
+        System.out.println(i);
         if (i.equals(user2.para)) {
-            System.out.println(user2);
 
-            if (userRepository1.existsByPara(user2.para)) {
+            if(userRepository1.existsByPara(user2.para))
+            {
 
 
-                return new ResponseEntity<>(HttpStatus.ALREADY_REPORTED);
-            } else if (user2.time.contains("AM")) {
-                System.out.println(user2.time.contains("AM"));
-                user2.forenoon = user2.time;
+                return new ResponseEntity<>(HttpStatus.ALREADY_REPORTED);}
+            else {
                 userRepository1.save(user2);
-                rsp=100;
-                return new ResponseEntity<>(HttpStatus.OK);
 
-            } else if (user2.time.contains("PM")) {
-                LocalDate date = LocalDate.parse(String.valueOf(LocalDate.now()));
-
-                if (userRepository1.existsByDateAndEmail(date, user2.getEmail())) {
-                    User1 user3;
-                    user3 = userRepository1.getByDateAndEmail(date, user2.getEmail());
-                    System.out.println(user3);
-                    int id = user3.getId();
-                    user2.setId(id);
-                    user2.forenoon = user3.forenoon;
-                    user2.afternoon = user2.time;
-                    userRepository1.save(user2);
-
-                    rsp=100;
-                    System.out.println(rsp);
-                  return new ResponseEntity<>(HttpStatus.OK);
-
-
-                } else {
-                    user2.afternoon =user2.time;
-                    userRepository1.save(user2);
-                    rsp=100;
-                    return new ResponseEntity<>(HttpStatus.OK);
-                }
-            } else {
-                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+              return new ResponseEntity<>(HttpStatus.OK);
 
             }
-
+        } else {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        return null;
-    }
 
-
-    @PostMapping("/response")
-    public int respond() {
-        return rsp;
-    }
-
-
-// @Transactional
-// @CrossOrigin
-// @RestController
-// @RequestMapping("/api/rest")
-// public class Controller {
-
-//     @Autowired
-//     private DetailRepository detailRepository;
-
-//     @Autowired
-//     public UserRepository1 userRepository1;
-
-//     @Autowired
-//     public Genarator genarator;
-
-//     public String i;
-
-//    // public String verify = genarator.generateRandom(10);
-
-
-
-//     @Autowired
-//     public DetailsServices detailService;
-//     @GetMapping("/qr-generator")
-//             public String Test() {
-//         String verify = genarator.generateRandom(20);
-//         System.out.println(verify);
-//         i=verify;
-//         return verify;
-//     }
-
-//     @PostMapping("/save")
-//     public ResponseEntity AddUser(@RequestBody User1 user2) {
-
-//         System.out.println(i);
-//         if (i.equals(user2.para)) {
-
-//             if(userRepository1.existsByPara(user2.para))
-//             {
-
-
-//                 return new ResponseEntity<>(HttpStatus.ALREADY_REPORTED);}
-//             else {
-//                 userRepository1.save(user2);
-
-//               return new ResponseEntity<>(HttpStatus.OK);
-
-//             }
-//         } else {
-//             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-//         }
-
-//        }
+       }
        
 // //       public ResponseEntity<?>waiter()
 // //       {
