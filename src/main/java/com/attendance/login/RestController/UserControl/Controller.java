@@ -119,8 +119,8 @@ rsp=0;
 
 
     @GetMapping("/delete-by-time")
-    public Iterable<User1> delete( @RequestParam String date) {
-        return userRepository1.deleteByDate(date);
+    public Iterable<User1> delete( @RequestParam String time, String name) {
+        return userRepository1.deleteByTime(time,name);
     }
 
 
