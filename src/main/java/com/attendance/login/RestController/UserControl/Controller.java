@@ -39,7 +39,7 @@ public class Controller {
 
    // public String verify = genarator.generateRandom(10);
 
-
+ public int rsp;
 
     @Autowired
     public DetailsServices detailService;
@@ -53,7 +53,7 @@ public class Controller {
 
     @PostMapping("/save")
     public ResponseEntity AddUser(@RequestBody User1 user2) {
-
+rsp=0;
         System.out.println(i);
         if (i.equals(user2.para)) {
 
@@ -64,7 +64,7 @@ public class Controller {
                 return new ResponseEntity<>(HttpStatus.ALREADY_REPORTED);}
             else {
                 userRepository1.save(user2);
-
+             rsp=100;
               return new ResponseEntity<>(HttpStatus.OK);
 
             }
@@ -73,6 +73,11 @@ public class Controller {
         }
 
        }
+    
+       @PostMapping("/response")
+    public int respond() {
+        return rsp;
+    }
        
 // //       public ResponseEntity<?>waiter()
 // //       {
