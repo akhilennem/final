@@ -45,6 +45,7 @@ public class Controller {
     public DetailsServices detailService;
     @GetMapping("/qr-generator")
             public String Test() {
+                 rsp=0;
         String verify = genarator.generateRandom(20);
         System.out.println(verify);
         i=verify;
